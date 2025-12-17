@@ -5,11 +5,13 @@ import { Button } from "./ui/button";
 import { Icon } from "@iconify/react";
 import { supabase } from "@/lib/supabase";
 import { useAuthUser } from "@/hooks/useAuthState";
+import { useNavigate } from "@tanstack/react-router";
 
 const SECTIONS = ["home", "about", "services", "projects"];
 
 export default function Header() {
   const user = useAuthUser();
+  const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState<string>("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -22,6 +24,16 @@ export default function Header() {
       block: "start",
     });
     setIsMenuOpen(false);
+  };
+
+  const handleAuthButton = async () => {
+    if (user) {
+      // logout
+      await supabase.auth.signOut();
+      navigate({ to: "/", replace: true });
+    } else {
+      navigate({ to: "/login" });
+    }
   };
 
   useEffect(() => {
@@ -91,12 +103,13 @@ export default function Header() {
           </span>
 
           <span className="flex flex-row gap-2">
-            <a href="/login">
-              <Button className="hidden sm:flex text-sm sm:text-base">
-                {user ? "Logout" : "Login"}
-              </Button>
-            </a>
-            <Button className="hidden sm:flex bg-linear-to-r from-primary-500 to-primary-400 text-sm sm:text-base">
+            <Button className="hidden sm:flex text-sm sm:text-base">
+              {user ? "Logout" : "Login"}
+            </Button>
+            <Button
+              className="hidden sm:flex bg-linear-to-r from-primary-500 to-primary-400 text-sm sm:text-base"
+              onClick={handleAuthButton}
+            >
               Download CV <Icon icon="lucide:arrow-down-to-line" />
             </Button>
           </span>
