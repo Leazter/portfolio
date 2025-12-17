@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   Card,
   CardContent,
@@ -8,9 +8,18 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import capstone from "@/assets/img/capstone.jpg";
 
-export default function Projects() {
+type Project = {
+  image: string;
+  title: string;
+  description: string;
+};
+
+type Props = {
+  projects: Project[];
+};
+
+export default function Projects({ projects }: Props) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -39,30 +48,33 @@ export default function Projects() {
         transition={{ duration: 0.6, delay: 0.4 }}
         whileHover={{ y: -8, transition: { duration: 0.3 } }}
       >
-        <Card className="hover:shadow-xl transition-shadow">
-          <CardHeader>
-            <CardTitle>
-              <span className="text-2xl sm:text-3xl lg:text-3xl bg-linear-to-r from-primary-500 to-secondary-300 bg-clip-text">
-                <strong className="text-transparent">SkillSprout</strong>
-              </span>
-            </CardTitle>
-            <CardDescription className="text-sm sm:text-base">
-              SkillSprout is a Capstone Project on La Consolacion University
-              Philippines. It offers solution on users to learn a new skill in
-              easy and modern way. We use React to build the frontend and
-              Firebase as backend.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <motion.img
-              src={capstone}
-              alt="SkillSprout project"
-              className="rounded-lg w-full"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-            />
-          </CardContent>
-        </Card>
+        <ul>
+          {projects?.map((project) => (
+            <Card className="hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <CardTitle>
+                  <span className="text-2xl sm:text-3xl lg:text-3xl bg-linear-to-r from-primary-500 to-secondary-300 bg-clip-text">
+                    <strong className="text-transparent">
+                      {project.title}
+                    </strong>
+                  </span>
+                </CardTitle>
+                <CardDescription className="text-sm sm:text-base">
+                  {project.description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <motion.img
+                  src={project.image}
+                  alt="SkillSprout project"
+                  className="rounded-lg w-full"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </CardContent>
+            </Card>
+          ))}
+        </ul>
       </motion.div>
     </motion.div>
   );

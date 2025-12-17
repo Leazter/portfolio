@@ -2,7 +2,11 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 
-export default function AboutMe() {
+type Props = {
+  description: string;
+};
+
+export default function AboutMe(props: Props) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -30,10 +34,7 @@ export default function AboutMe() {
         transition={{ duration: 0.6, delay: 0.4 }}
         className="text-base sm:text-lg md:text-xl leading-relaxed"
       >
-        Hi! I'm Lester Mendoza, I'm a BSIT student and Basketball Athlete from
-        La Consolacion University Philippines. I can balance my athleticism and
-        upgrading my IT skills. I'm currently interested in developing Front-End
-        Web applications using React.
+        {props.description}
       </motion.p>
     </motion.div>
   );

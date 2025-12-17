@@ -10,31 +10,45 @@ import {
   CardTitle,
 } from "./ui/card";
 
-export default function Services() {
+type ServiceType = {
+  title: string;
+  description: string;
+};
+
+type Props = {
+  services: ServiceType[];
+};
+
+export default function Services({ services }: Props) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const services = [
+  const [first, second, third] = services;
+
+  const items = [
     {
-      title: "Front-end",
+      title: first?.title ?? "Front-end",
       icon: "simple-icons:react",
       color: "#61DAFB",
       description:
+        first?.description ??
         "Building front-end pages using React, Tailwindcss, and Shadcn. Prioritizing UI/UX.",
     },
     {
-      title: "Back-end",
+      title: second?.title ?? "Back-end",
       icon: "simple-icons:supabase",
       color: "#3FCF8E",
       description:
+        second?.description ??
         "Integrating Backend-as-a-Service such as Supabase and Firebase. Providing blazingly fast solutions.",
     },
     {
-      title: "Database",
+      title: third?.title ?? "Database",
       icon: "simple-icons:mysql",
       color: "#4479A1",
       description:
-        "Providing solutions for Databases using MySQL and other services that uses Relational Database and Non-Relational Database.",
+        third?.description ??
+        "Providing solutions for Databases using MySQL and other services that use Relational and Non-Relational Databases.",
     },
   ];
 
@@ -58,7 +72,7 @@ export default function Services() {
       </motion.h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {services.map((service, index) => (
+        {items.map((service, index) => (
           <motion.div
             key={service.title}
             initial={{ opacity: 0, y: 30 }}
