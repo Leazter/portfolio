@@ -3,10 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import ToggleTheme from "./ToggleTheme";
 import { Button } from "./ui/button";
 import { Icon } from "@iconify/react";
+import { supabase } from "@/lib/supabase";
 
 const SECTIONS = ["home", "about", "services", "projects"];
 
 export default function Header() {
+  const user = supabase.auth.getUser();
   const [activeSection, setActiveSection] = useState<string>("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -32,7 +34,7 @@ export default function Header() {
       },
       {
         rootMargin: "-50% 0px -50% 0px",
-      }
+      },
     );
 
     SECTIONS.forEach((id) => {
@@ -62,11 +64,10 @@ export default function Header() {
                   <li key={section}>
                     <button
                       onClick={() => navigateToSection(section)}
-                      className={`capitalize transition-colors ${
-                        activeSection === section
-                          ? "text-primary-500 font-semibold"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
+                      className={`capitalize transition-colors ${activeSection === section
+                        ? "text-primary-500 font-semibold"
+                        : "text-muted-foreground hover:text-foreground"
+                        }`}
                     >
                       {section}
                     </button>
@@ -88,9 +89,16 @@ export default function Header() {
             </button>
           </span>
 
-          <Button className="hidden sm:flex bg-linear-to-r from-primary-500 to-primary-400 text-sm sm:text-base">
-            Download CV <Icon icon="lucide:arrow-down-to-line" />
-          </Button>
+          <span className="flex flex-row gap-2">
+            <a href="/login">
+              <Button className="hidden sm:flex text-sm sm:text-base">
+                {user ? "Logout" : "Login"}
+              </Button>
+            </a>
+            <Button className="hidden sm:flex bg-linear-to-r from-primary-500 to-primary-400 text-sm sm:text-base">
+              Download CV <Icon icon="lucide:arrow-down-to-line" />
+            </Button>
+          </span>
         </div>
       </div>
 
@@ -110,11 +118,10 @@ export default function Header() {
                   <li key={section}>
                     <button
                       onClick={() => navigateToSection(section)}
-                      className={`w-full text-left px-6 py-3 capitalize transition-colors ${
-                        activeSection === section
-                          ? "text-primary-500 font-semibold bg-primary-500/10"
-                          : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                      }`}
+                      className={`w-full text-left px-6 py-3 capitalize transition-colors ${activeSection === section
+                        ? "text-primary-500 font-semibold bg-primary-500/10"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                        }`}
                     >
                       {section}
                     </button>
