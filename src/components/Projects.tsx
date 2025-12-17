@@ -3,13 +3,14 @@ import { useInView } from "framer-motion";
 import React, { useRef, useState } from "react";
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { Button } from "./ui/button";
 import { useAuthUser } from "@/hooks/useAuthState";
+import { Button } from "./ui/button";
 import { Icon } from "@iconify/react";
 
 type Project = {
@@ -36,23 +37,15 @@ export default function Projects({ projects }: Props) {
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.6 }}
     >
-      <motion.span
-        className="flex flex-row items-center justify-between"
+      <motion.h2
         initial={{ opacity: 0, x: -30 }}
         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <h2>
-          <span className="text-3xl sm:text-4xl lg:text-5xl bg-linear-to-r from-primary-500 to-secondary-300 bg-clip-text">
-            <strong className="text-transparent">Projects</strong>
-          </span>
-        </h2>
-        {user && (
-          <Button className="top-4 right-4 text-sm font-bold bg-linear-to-r from-primary-500 to-secondary-300">
-            <Icon icon="lucide:pen-line" />
-          </Button>
-        )}
-      </motion.span>
+        <span className="text-3xl sm:text-4xl lg:text-5xl bg-linear-to-r from-primary-500 to-secondary-300 bg-clip-text">
+          <strong className="text-transparent">Projects</strong>
+        </span>
+      </motion.h2>
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -74,6 +67,13 @@ export default function Projects({ projects }: Props) {
                 <CardDescription className="text-sm sm:text-base">
                   {project.description}
                 </CardDescription>
+                <CardAction>
+                  {user && (
+                    <Button className="top-4 right-4 text-sm font-bold bg-linear-to-r from-primary-500 to-secondary-300">
+                      <Icon icon="lucide:pen-line" />
+                    </Button>
+                  )}
+                </CardAction>
               </CardHeader>
               <CardContent>
                 <motion.img

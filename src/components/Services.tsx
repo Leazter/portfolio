@@ -1,4 +1,3 @@
-import { useAuthUser } from "@/hooks/useAuthState";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
@@ -11,6 +10,7 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Button } from "./ui/button";
+import { useAuthUser } from "@/hooks/useAuthState";
 
 type ServiceType = {
   title: string;
@@ -64,23 +64,15 @@ export default function Services({ services }: Props) {
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.6 }}
     >
-      <motion.span
-        className="flex flex-row items-center justify-between"
+      <motion.h2
         initial={{ opacity: 0, x: -30 }}
         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <h2>
-          <span className="text-3xl sm:text-4xl lg:text-5xl bg-linear-to-r from-primary-500 to-secondary-300 bg-clip-text">
-            <strong className="text-transparent">Services</strong>
-          </span>
-        </h2>
-        {user && (
-          <Button className="top-4 right-4 text-sm font-bold bg-linear-to-r from-primary-500 to-secondary-300">
-            <Icon icon="lucide:pen-line" />
-          </Button>
-        )}
-      </motion.span>
+        <span className="text-3xl sm:text-4xl lg:text-5xl bg-linear-to-r from-primary-500 to-secondary-300 bg-clip-text">
+          <strong className="text-transparent">Services</strong>
+        </span>
+      </motion.h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((service, index) => (
@@ -97,11 +89,17 @@ export default function Services({ services }: Props) {
                   {service.title}
                 </CardTitle>
                 <CardAction>
-                  <Icon
-                    icon={service.icon}
-                    fontSize={service.title === "Database" ? 44 : 30}
-                    color={service.color}
-                  />
+                  {user ? (
+                    <Button className="top-4 right-4 text-sm font-bold bg-linear-to-r from-primary-500 to-secondary-300">
+                      <Icon icon="lucide:pen-line" />
+                    </Button>
+                  ) : (
+                    <Icon
+                      icon={service.icon}
+                      fontSize={service.title === "Database" ? 44 : 30}
+                      color={service.color}
+                    />
+                  )}
                 </CardAction>
               </CardHeader>
               <CardContent>
