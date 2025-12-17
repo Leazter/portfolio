@@ -30,7 +30,7 @@ export default function Header() {
     if (user) {
       // logout
       await supabase.auth.signOut();
-      navigate({ to: "/", replace: true });
+      window.location.reload()
     } else {
       navigate({ to: "/login" });
     }
@@ -77,10 +77,11 @@ export default function Header() {
                   <li key={section}>
                     <button
                       onClick={() => navigateToSection(section)}
-                      className={`capitalize transition-colors ${activeSection === section
-                        ? "text-primary-500 font-semibold"
-                        : "text-muted-foreground hover:text-foreground"
-                        }`}
+                      className={`capitalize transition-colors ${
+                        activeSection === section
+                          ? "text-primary-500 font-semibold"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
                     >
                       {section}
                     </button>
@@ -103,13 +104,13 @@ export default function Header() {
           </span>
 
           <span className="flex flex-row gap-2">
-            <Button className="hidden sm:flex text-sm sm:text-base">
-              {user ? "Logout" : "Login"}
-            </Button>
             <Button
-              className="hidden sm:flex bg-linear-to-r from-primary-500 to-primary-400 text-sm sm:text-base"
+              className="hidden sm:flex text-sm sm:text-base"
               onClick={handleAuthButton}
             >
+              {user ? "Logout" : "Login"}
+            </Button>
+            <Button className="hidden sm:flex bg-linear-to-r from-primary-500 to-primary-400 text-sm sm:text-base">
               Download CV <Icon icon="lucide:arrow-down-to-line" />
             </Button>
           </span>
@@ -132,10 +133,11 @@ export default function Header() {
                   <li key={section}>
                     <button
                       onClick={() => navigateToSection(section)}
-                      className={`w-full text-left px-6 py-3 capitalize transition-colors ${activeSection === section
-                        ? "text-primary-500 font-semibold bg-primary-500/10"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                        }`}
+                      className={`w-full text-left px-6 py-3 capitalize transition-colors ${
+                        activeSection === section
+                          ? "text-primary-500 font-semibold bg-primary-500/10"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      }`}
                     >
                       {section}
                     </button>
