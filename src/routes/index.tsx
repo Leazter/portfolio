@@ -16,7 +16,10 @@ export const Route = createFileRoute("/")({
       .select("description")
       .eq("id", 1)
       .single();
-    const { data: services } = await supabase.from("services").select("*");
+    const { data: services } = await supabase
+      .from("services")
+      .select("*")
+      .order("id", { ascending: true });
     const { data: projects } = await supabase.from("projects").select("*");
     return { about, services, projects };
   },

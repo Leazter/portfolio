@@ -11,8 +11,10 @@ import {
 } from "./ui/card";
 import { Button } from "./ui/button";
 import { useAuthUser } from "@/hooks/useAuthState";
+import DialogServices from "./dialog/DialogServices";
 
 type ServiceType = {
+  id: number;
   title: string;
   description: string;
 };
@@ -30,6 +32,7 @@ export default function Services({ services }: Props) {
 
   const items = [
     {
+      id: first?.id,
       title: first?.title ?? "Front-end",
       icon: "simple-icons:react",
       color: "#61DAFB",
@@ -38,6 +41,7 @@ export default function Services({ services }: Props) {
         "Building front-end pages using React, Tailwindcss, and Shadcn. Prioritizing UI/UX.",
     },
     {
+      id: second?.id,
       title: second?.title ?? "Back-end",
       icon: "simple-icons:supabase",
       color: "#3FCF8E",
@@ -46,6 +50,7 @@ export default function Services({ services }: Props) {
         "Integrating Backend-as-a-Service such as Supabase and Firebase. Providing blazingly fast solutions.",
     },
     {
+      id: third?.id,
       title: third?.title ?? "Database",
       icon: "simple-icons:mysql",
       color: "#4479A1",
@@ -90,9 +95,14 @@ export default function Services({ services }: Props) {
                 </CardTitle>
                 <CardAction>
                   {user ? (
-                    <Button className="top-4 right-4 text-sm font-bold bg-linear-to-r from-primary-500 to-secondary-300">
-                      <Icon icon="lucide:pen-line" />
-                    </Button>
+                    <DialogServices
+                      serviceId={service.id} // pass id
+                      initialTitle={service.title} // pre‑fill title
+                      initialDescription={service.description} // pre‑fill desc
+                      onUpdated={() => {
+                        window.location.reload()
+                      }}
+                    />
                   ) : (
                     <Icon
                       icon={service.icon}
