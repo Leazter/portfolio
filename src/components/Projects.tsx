@@ -8,6 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import { Button } from "./ui/button";
+import { useAuthUser } from "@/hooks/useAuthState";
+import { Icon } from "@iconify/react";
 
 type Project = {
   image: string;
@@ -20,6 +23,7 @@ type Props = {
 };
 
 export default function Projects({ projects }: Props) {
+  const user = useAuthUser();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -32,15 +36,23 @@ export default function Projects({ projects }: Props) {
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.6 }}
     >
-      <motion.h2
+      <motion.span
+        className="flex flex-row items-center justify-between"
         initial={{ opacity: 0, x: -30 }}
         animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <span className="text-3xl sm:text-4xl lg:text-5xl bg-linear-to-r from-primary-500 to-secondary-300 bg-clip-text">
-          <strong className="text-transparent">Projects</strong>
-        </span>
-      </motion.h2>
+        <h2>
+          <span className="text-3xl sm:text-4xl lg:text-5xl bg-linear-to-r from-primary-500 to-secondary-300 bg-clip-text">
+            <strong className="text-transparent">Projects</strong>
+          </span>
+        </h2>
+        {user && (
+          <Button className="top-4 right-4 text-sm font-bold bg-linear-to-r from-primary-500 to-secondary-300">
+            <Icon icon="lucide:pen-line" />
+          </Button>
+        )}
+      </motion.span>
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
