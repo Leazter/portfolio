@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
@@ -18,7 +19,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { Icon } from "@iconify/react";
 
 export function LoginForm({
   className,
@@ -62,6 +64,9 @@ export function LoginForm({
           <CardDescription>
             Enter your email & password to login
           </CardDescription>
+          <CardAction>
+            <Link to="/"><Icon icon="lucide:x"/></Link>
+          </CardAction>
         </CardHeader>
 
         <CardContent>

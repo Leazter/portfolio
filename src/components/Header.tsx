@@ -4,11 +4,12 @@ import ToggleTheme from "./ToggleTheme";
 import { Button } from "./ui/button";
 import { Icon } from "@iconify/react";
 import { supabase } from "@/lib/supabase";
+import { useAuthUser } from "@/hooks/useAuthState";
 
 const SECTIONS = ["home", "about", "services", "projects"];
 
 export default function Header() {
-  const user = supabase.auth.getUser();
+  const user = useAuthUser();
   const [activeSection, setActiveSection] = useState<string>("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
