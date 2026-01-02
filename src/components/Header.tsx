@@ -103,14 +103,14 @@ export default function Header() {
             </button>
           </span>
 
-          <span className="flex flex-row gap-2">
+          <span className="hidden sm:flex flex-row gap-2">
             <Button
-              className="hidden sm:flex text-sm sm:text-base"
+              className="text-sm sm:text-base"
               onClick={handleAuthButton}
             >
               {user ? "Logout" : "Login"}
             </Button>
-            <Button className="hidden sm:flex bg-linear-to-r from-primary-500 to-primary-400 text-sm sm:text-base">
+            <Button className="bg-linear-to-r from-primary-500 to-primary-400 text-sm sm:text-base">
               Download CV <Icon icon="lucide:arrow-down-to-line" />
             </Button>
           </span>
@@ -144,15 +144,15 @@ export default function Header() {
                   </li>
                 ))}
               </ul>
-              <div className="px-6 pt-3">
-                <Button className="w-full bg-linear-to-r from-primary-500 to-primary-400">
-                  Download CV <Icon icon="lucide:arrow-down-to-line" />
-                </Button>
-                <Button
-                  className="hidden sm:flex text-sm sm:text-base"
+              <div className="px-6 pt-3 space-y-2">
+                <Button 
+                  className="w-full"
                   onClick={handleAuthButton}
                 >
                   {user ? "Logout" : "Login"}
+                </Button>
+                <Button className="w-full bg-linear-to-r from-primary-500 to-primary-400">
+                  Download CV <Icon icon="lucide:arrow-down-to-line" />
                 </Button>
               </div>
             </nav>
