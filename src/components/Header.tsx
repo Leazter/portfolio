@@ -30,7 +30,7 @@ export default function Header() {
     if (user) {
       // logout
       await supabase.auth.signOut();
-      window.location.reload()
+      window.location.reload();
     } else {
       navigate({ to: "/login" });
     }
@@ -147,6 +147,12 @@ export default function Header() {
               <div className="px-6 pt-3">
                 <Button className="w-full bg-linear-to-r from-primary-500 to-primary-400">
                   Download CV <Icon icon="lucide:arrow-down-to-line" />
+                </Button>
+                <Button
+                  className="hidden sm:flex text-sm sm:text-base"
+                  onClick={handleAuthButton}
+                >
+                  {user ? "Logout" : "Login"}
                 </Button>
               </div>
             </nav>
